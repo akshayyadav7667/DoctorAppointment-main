@@ -15,6 +15,7 @@ const adminRouter = express.Router();
 // adminRouter.get('/doctors',ProtectedAuth, authorizeRoles('admin'), getAllDoctors );
 
 adminRouter.post("/approve-doctor", ProtectedAuth, isAdmin, changeDoctorStatus);
+
 adminRouter.get(
   "/all-appointments",
   ProtectedAuth,

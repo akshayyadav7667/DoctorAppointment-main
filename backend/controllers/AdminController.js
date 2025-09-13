@@ -32,7 +32,7 @@ export const changeDoctorStatus = async (req, res) => {
       },
       { new: true }
     );
-    // console.log(doctor);
+    console.log(doctor);
 
     if (!doctor) {
       return res.status(404).json({ message: "Doctor not found" });
@@ -41,7 +41,8 @@ export const changeDoctorStatus = async (req, res) => {
     if (status === "approved") {
       await User.findByIdAndUpdate(doctor.user_Id, { role: "doctor" });
     } else if (status === "rejected") {
-      await User.findByIdAndUpdate(doctor.user_Id, { role: "user" });
+      // await User.findByIdAndUpdate(doctor.user_Id, { role: "user" });
+      await Doctor.findByIdAndDelete(doctorId);
     }
 
     res
