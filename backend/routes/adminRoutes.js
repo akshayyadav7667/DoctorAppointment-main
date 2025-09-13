@@ -41,7 +41,7 @@ adminRouter.post(
   AddDoctor
 );
 adminRouter.get(
-  "/getDoctorIdforAprroval",
+  "/getDoctorIdforAprroval/:id",
   ProtectedAuth,
   authorizeRoles("admin"),
   getDoctorDetailsforApproval

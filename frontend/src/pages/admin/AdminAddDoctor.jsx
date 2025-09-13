@@ -6,9 +6,15 @@ import toast from "react-hot-toast";
 import { IoPersonAdd } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
 import { FaArrowRightToBracket } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminAddDoctor() {
-  const { backendUrl, userToken } = useContext(AuthContext);
+  const { backendUrl, userToken, user } = useContext(AuthContext);
+  const role = user?.role;
+  const navigate = useNavigate();
+
+  // console.log(role);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -99,6 +105,7 @@ export default function AdminAddDoctor() {
 
   const handleOpen = (id) => {
     console.log(id);
+    navigate(`/${role}/add-doctors/${id}`);
   };
 
   return (

@@ -136,12 +136,18 @@ export const getAllDoctorforApproval = async (req, res) => {
 };
 
 export const getDoctorDetailsforApproval = async (req, res) => {
-  const id = req.params.Id;
-  console.log(id);
+  const doctorId = req.params.id;
+  // console.log(id);
   try {
-    const doctor = await Doctor.findById(id);
-    return doctor.
-  } catch (error) {}
+    const doctor = await Doctor.findById(doctorId).populate(
+      "user_Id",
+      " name phone email image dob"
+    );
+    res.status(200).json(doctor);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ message: error.message });
+  }
 };
 
 // add Doctor by the admin manually

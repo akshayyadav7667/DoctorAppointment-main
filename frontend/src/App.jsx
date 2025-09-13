@@ -34,6 +34,7 @@ import AdminAppointment from "./pages/admin/AdminAppointment";
 import ApplyForDoctor from "./pages/ApplyForDoctor";
 import FormApplyForDoctor from "./pages/user/FormApplyForDoctor";
 import ChartUser from "./pages/user/ChartUser";
+import SingleApprovalforDoctor from "./pages/admin/SingleApprovalforDoctor";
 // import AddDoctorAdmin from "./layout/AddDoctorAdmin";
 function App() {
   // const { user } = useContext(AuthContext);
@@ -76,8 +77,8 @@ function App() {
           <Route path="contact" element={<Contact />} />
           <Route path="blogs" element={<Blog />} />
           <Route path="myDashboard" element={<MyDashboard />} />
-          <Route path="applyDoctor" element={<FormApplyForDoctor/>} />
-          <Route path="chat" element={<ChartUser/>} />
+          <Route path="applyDoctor" element={<FormApplyForDoctor />} />
+          <Route path="chat" element={<ChartUser />} />
         </Route>
 
         {/* Doctor Routes */}
@@ -104,10 +105,10 @@ function App() {
             </ProtectedRoute>
           }
         >
-          
           <Route path="add-doctors" element={<AdminAddDoctor />} />
           <Route path="dashboard" element={<AdminDashboard />} />
-          <Route path="appointments" element={<AdminAppointment/>} />
+          <Route path="appointments" element={<AdminAppointment />} />
+          <Route path="add-doctors/:id" element={<SingleApprovalforDoctor />} />
         </Route>
 
         {/* <Route index element={<AdminDashboard />} /> */}
