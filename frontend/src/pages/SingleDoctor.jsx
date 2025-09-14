@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { assets, doctors } from "../assets/assets";
 // import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
@@ -12,6 +12,7 @@ export default function SingleDoctor() {
   // const { user } = useContext(AuthContext);
 
   const { backendUrl, userToken } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const [docInfo, setDocInfo] = useState(null);
   const [docSlots, setDocSlots] = useState([]);
@@ -78,6 +79,10 @@ export default function SingleDoctor() {
 
   const bookAppointment = async () => {
     try {
+      if (!userToken) {
+        navigate("/login");
+      }
+
       if (!slotTime) return alert("Please select a time slot first!");
       alert(`Booking confirmed at ${slotTime}`);
 

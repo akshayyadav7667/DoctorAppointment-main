@@ -104,7 +104,7 @@ export const getDetails = async (req, res) => {
       approvedDoctor: approvedDoctor.length,
       rejectedDoctor: rejectedDoctor.length,
       pendingAppointment: pendingAppointment.length,
-      confirmedAppointment: confirmedAppointment.lenght,
+      confirmedAppointment: confirmedAppointment.length,
       rejectedAppointment: rejectedAppointment.length,
     });
   } catch (error) {
