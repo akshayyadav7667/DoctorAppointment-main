@@ -216,3 +216,42 @@ export const AddDoctor = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+
+// Api for getting all user
+export const getAllUser = async (req, res) => {
+  try {
+    let { page, limit, search } = req.query;
+
+    // defaults
+    page = parseInt(page) || 1;
+    limit = parseInt(limit) || 10;
+    const skip = (page - 1) * limit;
+
+    // Search filter
+    let filter = { role: "user" };
+    if (search) {
+      const regex = new RegExp(search, "i"); // case-insensitive search
+      filter.$or = [{ name: regex }, { email: regex }, { phone: regex }];
+    }
+
+    // Query with filter + pagination
+    const users = await User.find(filter)
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
+
+    const total = await User.countDocuments(filter);
+
+    res.json({
+      success: true,
+      page,
+      limit,
+      totalUsers: total,
+      totalPages: Math.ceil(total / limit),
+      users,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Server Error" });
+  }
+};

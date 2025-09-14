@@ -1,33 +1,29 @@
-import React from 'react'
-import { useState } from 'react';
+import React from "react";
+import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { IoChatbubbleEllipsesOutline } from "react-icons/io5";
 
-
 export default function NavbarAdmin() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-    
-      const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
-      };
-    
-      const navItems = [
-        { to: "/admin", label: "Home" },
-        // { to: "/admin/about", label: "About" },
-        { to: "/admin/Dashboard", label: "Dashboard" },
-        { to: "/admin/add-doctors", label: "Add Doctor" },
-        { to: "/admin/user", label: "users" },
-        { to: "/admin/appointments", label: "Appointments" },
-        { to: "/admin/contact", label: "Contact" },
-        { to: "/admin/blogs", label: "Blogs" },
-    ];
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
-
+  const navItems = [
+    { to: "/admin", label: "Home" },
+    // { to: "/admin/about", label: "About" },
+    { to: "/admin/Dashboard", label: "Dashboard" },
+    { to: "/admin/add-doctors", label: "Add Doctor" },
+    { to: "/admin/getAllPatients", label: "Patients" },
+    { to: "/admin/appointments", label: "Appointments" },
+    { to: "/admin/contact", label: "Contact" },
+    { to: "/admin/blogs", label: "Blogs" },
+  ];
 
   return (
-     <div>
+    <div>
       <nav className="flex justify-between items-center p-6 relative ">
         <div className="text-2xl">
           <span className="text-4xl">⚕️</span>
@@ -95,5 +91,5 @@ export default function NavbarAdmin() {
         )}
       </nav>
     </div>
-  )
+  );
 }

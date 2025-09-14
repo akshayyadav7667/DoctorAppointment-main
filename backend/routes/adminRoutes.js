@@ -5,6 +5,7 @@ import {
   changeDoctorStatus,
   getAllAppointment,
   getAllDoctorforApproval,
+  getAllUser,
   getDetails,
   getDoctorDetailsforApproval,
 } from "../controllers/AdminController.js";
@@ -46,6 +47,13 @@ adminRouter.get(
   ProtectedAuth,
   authorizeRoles("admin"),
   getDoctorDetailsforApproval
+);
+
+adminRouter.get(
+  "/getAllUser",
+  ProtectedAuth,
+  authorizeRoles("admin"),
+  getAllUser
 );
 
 export default adminRouter;
