@@ -91,7 +91,14 @@ export default function SingleDoctor() {
         selectedDate.getMonth() + 1
       }_${selectedDate.getFullYear()}`;
 
-      console.log(formattedDate, slotTime);
+      // console.log(formattedDate, slotTime);
+
+      // const [day, month, year] = formattedDate.split("_").map(Number);
+      // const realDate = new Date(year, month - 1, day);
+      // const realDate = new Date(year, month - 1, day);
+
+      // console.log(realDate);
+      console.log(docInfo._id);
 
       const response = await axios.post(
         backendUrl + "/api/appointment/applyAppointment",

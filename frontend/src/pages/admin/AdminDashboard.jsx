@@ -159,25 +159,27 @@ export default function AdminDashboard() {
 
       {/* Statistics Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <div className="bg-white rounded-lg shadow p-6">
-          <p className="text-gray-600 text-sm">Total Users</p>
-          <p className="text-2xl font-bold">{dashboardData.user || 0}</p>
+        <div className="bg-white rounded-lg  bg-gradient-to-tr from-blue-500 to-indigo-400 shadow p-6">
+          <p className="text-white  text-sm">Total Users</p>
+          <p className="text-2xl text-white font-bold">
+            {dashboardData.user || 0}
+          </p>
         </div>
-        <div className="bg-white rounded-lg shadow p-6">
-          <p className="text-gray-600 text-sm">Total Doctors</p>
-          <p className="text-2xl font-bold">
+        <div className="bg-white bg-gradient-to-tr from-orange-500 to-pink-300 rounded-lg shadow p-6">
+          <p className="text-white text-sm">Total Doctors</p>
+          <p className="text-2xl text-white font-bold">
             {dashboardData.totalDoctors || 0}
           </p>
         </div>
-        <div className="bg-white rounded-lg shadow p-6">
-          <p className="text-gray-600 text-sm">Pending Approvals</p>
-          <p className="text-2xl font-bold">
+        <div className="bg-white bg-gradient-to-tr from-green-500 to-green-300 rounded-lg shadow p-6">
+          <p className="text-white text-sm">Pending Approvals</p>
+          <p className="text-2xl text-white font-bold">
             {dashboardData.pendingDoctors || 0}
           </p>
         </div>
-        <div className="bg-white rounded-lg shadow p-6">
-          <p className="text-gray-600 text-sm">Total Appointments</p>
-          <p className="text-2xl font-bold">
+        <div className="bg-white bg-gradient-to-tr from-yellow-500 to-yellow-300  rounded-lg shadow p-6">
+          <p className="text-white  text-sm">Total Appointments</p>
+          <p className="text-2xl text-white font-bold">
             {(dashboardData.pendingAppointment || 0) +
               (dashboardData.confirmedAppointment || 0) +
               (dashboardData.rejectedAppointment || 0)}
