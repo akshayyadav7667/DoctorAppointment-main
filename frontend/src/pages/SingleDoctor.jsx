@@ -7,7 +7,9 @@ import { useContext } from "react";
 import axios from "axios";
 
 export default function SingleDoctor() {
-  const { _id } = useParams();
+  const { docId } = useParams();
+
+  // console.log(docId);
 
   // const { user } = useContext(AuthContext);
 
@@ -22,9 +24,23 @@ export default function SingleDoctor() {
   const daysofWeek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
   // Fetch doctor info
-  const fetchDocInfo = () => {
-    const doc = doctors.find((doc) => doc._id === docId);
-    setDocInfo(doc);
+  const fetchDocInfo = async (req, res) => {
+    // const doc = doctors.find((doc) => doc._id === docId);
+    const response = await axios.get(
+      `${backendUrl}/api/doctor/get-doctor/${docId}`
+    );
+    // console.log(doc);
+
+    if (response.data && response.data._id) {
+      // console.log(response.data);
+      setDocInfo(response.data);
+    } else {
+      throw new Error("Invalid doctor data received");
+    }
+
+    // setDocInfo("doc", doc.data);
+
+    // setDocInfo(doc);
   };
 
   // Generate available slots
@@ -141,7 +157,7 @@ export default function SingleDoctor() {
         {/* Image */}
         <div>
           <img
-            src={docInfo?.image}
+            src={docInfo?.doctor_image}
             alt=""
             className="bg-blue-500 w-full sm:max-w-72 rounded-lg"
           />
@@ -150,15 +166,15 @@ export default function SingleDoctor() {
         {/* Doctor Info */}
         <div className="bg-white flex-1 border border-gray-400 px-4 md:px-10 py-7 mx-2 sm:mx-0 rounded-lg">
           <p className="flex items-center gap-2 text-2xl font-medium text-gray-900">
-            {docInfo?.name}
+            {docInfo?.user_Id.name}
             <img src={assets.verified_icon} alt="" className="w-5" />
           </p>
 
           <div className="flex items-center gap-2 text-sm mt-1 text-gray-600">
             <p>
-              {docInfo?.degree} - {docInfo?.speciality}
+              {docInfo?.degree} - {docInfo?.specialization}
             </p>
-            <button className="py-0.5 px-2 border text-xs rounded-full">
+            <button className="py-0.5 px-2 border  text-xs rounded-full">
               {docInfo?.experience}
             </button>
           </div>

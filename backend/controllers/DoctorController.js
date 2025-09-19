@@ -267,7 +267,16 @@ export const doctorDashboard = async (req, res) => {
 
 // get doctors by id
 
-const getDoctorDetailsById = async () => {
+export const getDoctorDetailsById = async (req, res) => {
+  const { docId } = req.params;
   try {
-  } catch (error) {}
+    const doctor = await Doctor.findById(docId).populate(
+      "user_Id",
+      "name email phone"
+    );
+    res.status(200).json(doctor);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ message: error.message });
+  }
 };

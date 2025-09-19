@@ -58,5 +58,6 @@ adminRouter.get(
 );
 
 adminRouter.get("/all-doctors", getAllDoctors);
+// adminRouter.get("/get-doctor:id",)
 
 export default adminRouter;
