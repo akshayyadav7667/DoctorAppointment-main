@@ -5,6 +5,7 @@ import {
   changeDoctorStatus,
   getAllAppointment,
   getAllDoctorforApproval,
+  getAllDoctors,
   getAllUser,
   getDetails,
   getDoctorDetailsforApproval,
@@ -55,5 +56,7 @@ adminRouter.get(
   authorizeRoles("admin"),
   getAllUser
 );
+
+adminRouter.get("/all-doctors", getAllDoctors);
 
 export default adminRouter;

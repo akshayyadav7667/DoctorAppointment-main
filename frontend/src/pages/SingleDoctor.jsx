@@ -7,7 +7,7 @@ import { useContext } from "react";
 import axios from "axios";
 
 export default function SingleDoctor() {
-  const { docId } = useParams();
+  const { _id } = useParams();
 
   // const { user } = useContext(AuthContext);
 

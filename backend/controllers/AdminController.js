@@ -4,16 +4,80 @@ import User from "../models/User.js";
 // import Appointment from '../models/Appointment.js'
 
 // get all doctors
+// get all doctors with advanced filtering
 export const getAllDoctors = async (req, res) => {
   try {
-    const doctor = await Doctor.find();
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const search = req.query.search || "";
+    const speciality = req.query.speciality || "";
+    const availability = req.query.availability; // Optional: filter by availability
+    const minExperience = parseInt(req.query.minExperience) || 0;
+    const maxFees = parseInt(req.query.maxFees); // Optional: filter by maximum fees
 
-    // console.log(doctor);
+    const skip = (page - 1) * limit;
 
-    res.status(200).json({ doctor: doctor });
+    // Build the search query
+    let searchQuery = {};
+
+    // Text search
+    if (search) {
+      searchQuery = {
+        $or: [
+          { name: { $regex: search, $options: "i" } },
+          { specialization: { $regex: search, $options: "i" } },
+          { bio: { $regex: search, $options: "i" } },
+          { about: { $regex: search, $options: "i" } },
+        ],
+      };
+    }
+
+    // Speciality filter
+    if (speciality) {
+      searchQuery.specialization = { $regex: speciality, $options: "i" };
+    }
+
+    // Availability filter
+    if (availability !== undefined) {
+      searchQuery.available = availability === "true";
+    }
+
+    // Experience filter
+    if (minExperience > 0) {
+      searchQuery.experience = { $gte: minExperience };
+    }
+
+    // Fees filter
+    if (maxFees) {
+      searchQuery.fees = { $lte: maxFees };
+    }
+
+    // Get doctors with pagination and filters
+    const doctors = await Doctor.find(searchQuery)
+      .populate("user_Id", "name email phone")
+      .skip(skip)
+      .limit(limit)
+      .sort({ createdAt: -1 }); // Sort by newest first
+
+    console.log(doctors);
+
+    // Get total count for pagination
+    const totalDoctors = await Doctor.countDocuments(searchQuery);
+    const totalPages = Math.ceil(totalDoctors / limit);
+
+    res.status(200).json({
+      success: true,
+      doctors,
+      totalDoctors,
+      currentPage: page,
+      totalPages,
+    });
   } catch (error) {
     console.log(error);
-    res.status(400).json({ message: error.message });
+    res.status(400).json({
+      success: false,
+      message: error.message,
+    });
   }
 };
 
